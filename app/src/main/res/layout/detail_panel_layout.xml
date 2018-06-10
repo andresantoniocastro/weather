@@ -2,11 +2,12 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/dayShortText"
+        android:id="@+id/detailDayText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -16,88 +17,92 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/dateText"
+        android:id="@+id/detailDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailDayText" />
+
+    <TextView
+        android:id="@+id/detailCurrentTempText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailDateText" />
+
+    <TextView
+        android:id="@+id/detailMinTempText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dayShortText" />
+        app:layout_constraintTop_toBottomOf="@+id/detailCurrentTempText" />
 
     <TextView
-        android:id="@+id/tempText"
+        android:id="@+id/detailHumidityLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateText" />
-
-    <TextView
-        android:id="@+id/minTempText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tempText" />
-
-    <TextView
-        android:id="@+id/humidityLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/humidity_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/minTempText" />
+        app:layout_constraintTop_toBottomOf="@+id/detailMinTempText" />
 
     <TextView
-        android:id="@+id/humidityText"
+        android:id="@+id/detailHumidityText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/humidityLabel"
-        app:layout_constraintTop_toTopOf="@+id/humidityLabel" />
+        app:layout_constraintStart_toEndOf="@+id/detailHumidityLabel"
+        app:layout_constraintTop_toTopOf="@+id/detailHumidityLabel" />
 
     <TextView
-        android:id="@+id/windLabel"
+        android:id="@+id/detailWindLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/wind_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/humidityLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/detailHumidityLabel" />
 
     <TextView
-        android:id="@+id/windText"
+        android:id="@+id/detailWindText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/windLabel"
-        app:layout_constraintTop_toTopOf="@+id/windLabel" />
+        app:layout_constraintStart_toEndOf="@+id/detailWindLabel"
+        app:layout_constraintTop_toTopOf="@+id/detailWindLabel" />
 
     <TextView
-        android:id="@+id/pressureLabel"
+        android:id="@+id/detailPressureLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/pressure_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/windLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/detailWindLabel" />
 
     <TextView
-        android:id="@+id/pressureText"
+        android:id="@+id/detailPressureText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/pressureLabel"
-        app:layout_constraintTop_toBottomOf="@+id/windLabel" />
+        app:layout_constraintStart_toEndOf="@+id/detailPressureLabel"
+        app:layout_constraintTop_toBottomOf="@+id/detailWindLabel" />
 
     <ImageView
-        android:id="@+id/weatherIcon"
+        android:id="@+id/detailImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -107,13 +112,13 @@
         app:srcCompat="@drawable/art_clear" />
 
     <TextView
-        android:id="@+id/descriptionText"
+        android:id="@+id/detailDayDescriptionText"
         android:layout_width="wrap_content"
-        android:layout_height="15dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/weatherIcon"
-        app:layout_constraintStart_toStartOf="@+id/weatherIcon"
-        app:layout_constraintTop_toBottomOf="@+id/weatherIcon" />
+        app:layout_constraintEnd_toEndOf="@+id/detailImageView"
+        app:layout_constraintStart_toStartOf="@+id/detailImageView"
+        app:layout_constraintTop_toBottomOf="@+id/detailImageView" />
 </android.support.constraint.ConstraintLayout>
