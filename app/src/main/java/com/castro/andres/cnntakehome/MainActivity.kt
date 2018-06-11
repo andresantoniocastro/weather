@@ -3,6 +3,10 @@ package com.castro.andres.cnntakehome
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.castro.andres.cnntakehome.data.db.ForecastRepository
+import com.castro.andres.cnntakehome.data.entities.ForecastQuery
+import com.castro.andres.cnntakehome.network.NetworkFragment
+import com.castro.andres.cnntakehome.network.RequestStatus
 import com.castro.andres.cnntakehome.ui.MainFrag
 
 class MainActivity : AppCompatActivity() {
@@ -11,6 +15,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
+
+
+
+//        val forecast = ForecastRepository(application).
+
+
+
+        NetworkFragment.getInstance(supportFragmentManager)
 
         // start up Network fragment to do its thing
 

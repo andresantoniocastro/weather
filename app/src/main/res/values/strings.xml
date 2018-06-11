@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">CNNTakehome</string>
+
+    <!-- Layout helpers -->
     <string name="humidity_label">HUMIDITY:</string>
     <string name="wind_label">WIND:</string>
     <string name="pressure_label">PRESSURE:</string>
+
 </resources>
