@@ -1,5 +1,7 @@
 package com.castro.andres.cnntakehome.ui.adapters
 
+import android.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -8,14 +10,21 @@ import android.view.View
 import android.view.ViewGroup
 import com.castro.andres.cnntakehome.R
 import com.castro.andres.cnntakehome.data.entities.WeatherForecast
+import com.castro.andres.cnntakehome.ui.DetailFragment
 import kotlinx.android.synthetic.main.other_day_list_item.view.*
 import kotlinx.android.synthetic.main.today_list_item.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class WeatherListAdapter(private var forecasts : List<WeatherForecast> = listOf()) : RecyclerView.Adapter<WeatherListAdapter.ViewHolder>() {
+class WeatherListAdapter(val supprtFragmentManager: FragmentManager, private var forecasts : List<WeatherForecast> = listOf()) : RecyclerView.Adapter<WeatherListAdapter.ViewHolder>() {
 
 
+    fun getOnClickListener(forecast : WeatherForecast) : View.OnClickListener{
+        return View.OnClickListener {
+            val detailFragment = DetailFragment.getInstance(forecast)
+            supprtFragmentManager.beginTransaction().replace(R.id.fragment_container, detailFragment).addToBackStack("detail").commit()
+        }
+    }
 
     fun update(newForecasts : List<WeatherForecast>)
     {
@@ -42,7 +51,7 @@ class WeatherListAdapter(private var forecasts : List<WeatherForecast> = listOf(
         })
 
         forecasts = newForecasts
-        
+
         result.dispatchUpdatesTo(this)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherListAdapter.ViewHolder {
@@ -61,6 +70,7 @@ class WeatherListAdapter(private var forecasts : List<WeatherForecast> = listOf(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItems(forecasts[position])
+        holder.itemView.setOnClickListener(getOnClickListener(forecasts[position]))
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -75,6 +85,7 @@ class WeatherListAdapter(private var forecasts : List<WeatherForecast> = listOf(
     private fun getTodayViewHolder(parent: ViewGroup): TodayViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.today_list_item, parent, false)
+
         return TodayViewHolder(view)
     }
 
@@ -131,7 +142,7 @@ class WeatherListAdapter(private var forecasts : List<WeatherForecast> = listOf(
         /**
          * Given an icon ID return the correct small icon
          */
-        private fun getSmallIcon(iconID : String) : Int
+        fun getSmallIcon(iconID : String) : Int
         {
             return when(iconID){
                 "01d", "01n" -> R.drawable.ic_clear
@@ -150,7 +161,7 @@ class WeatherListAdapter(private var forecasts : List<WeatherForecast> = listOf(
         /**
          * Given an icon ID return a large icon
          */
-        private fun getArt(iconID : String) : Int
+        fun getArt(iconID : String) : Int
         {
             return when(iconID){
                 "01d", "01n" -> R.drawable.art_clear
@@ -171,7 +182,7 @@ class WeatherListAdapter(private var forecasts : List<WeatherForecast> = listOf(
         /**
          * Return a string matching the day of the week from the timestamp.
          */
-        private fun getDayOfWeekFromTimeStamp(timeStamp: Long) : String
+        fun getDayOfWeekFromTimeStamp(timeStamp: Long) : String
         {
             val date = Date(timeStamp)
 
@@ -200,7 +211,7 @@ class WeatherListAdapter(private var forecasts : List<WeatherForecast> = listOf(
         /**
          * Given a UTC timestamp get the day and month
          */
-        private fun getDateFromTimeStamp(timeStamp : Long) : String
+        fun getDateFromTimeStamp(timeStamp : Long) : String
         {
             val date = Date(timeStamp)
 
