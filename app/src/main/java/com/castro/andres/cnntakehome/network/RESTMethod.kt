@@ -29,8 +29,8 @@ class RESTMethod {
         {
             return when(type)
             {
-                RequestType.CURRENT -> "http://api.openweathermap.org/data/2.5/weather?id=$ATLANTA_CODE&appid=$OPEN_WEATHER_CODE"
-                RequestType.FORECAST -> "http://api.openweathermap.org/data/2.5/forecast?id=$ATLANTA_CODE&appid=$OPEN_WEATHER_CODE&cnt=5"
+                RequestType.CURRENT -> "http://api.openweathermap.org/data/2.5/weather?id=$ATLANTA_CODE&appid=$OPEN_WEATHER_CODE&units=metric"
+                RequestType.FORECAST -> "http://api.openweathermap.org/data/2.5/forecast?id=$ATLANTA_CODE&appid=$OPEN_WEATHER_CODE&units=metric&cnt=5"
                 else -> ""
             }
         }
@@ -69,7 +69,6 @@ class RESTMethod {
                     inputString = bufferedReader.readLine()
 
                 }
-
                 return builder.toString()
 
             } finally {
@@ -81,52 +80,3 @@ class RESTMethod {
     }
 
 }
-
-/*
-private class GetTask() : AsyncTask<String, Void, String>() {
-    override fun doInBackground(vararg params: String): String {
-
-        // the video says to use the apache client, but that was removed and HTTPURLConnection is now preffered
-        val url = URL(params[0])
-        val urlConnection = url.openConnection() as HttpURLConnection
-        urlConnection.requestMethod = "GET"
-        urlConnection.doOutput = false
-        urlConnection.connectTimeout = 5000
-        urlConnection.readTimeout = 5000
-        urlConnection.connect()
-
-
-        if (urlConnection.responseCode != 200) {
-            throw RuntimeException("Failed : HTTP error code : "
-                    + urlConnection.responseCode);
-        }
-
-
-        try {
-            val input = BufferedInputStream(urlConnection.inputStream)
-            val bufferedReader = BufferedReader(InputStreamReader(input))
-            val builder = StringBuilder()
-            var inputString = bufferedReader.readLine()
-            while (inputString != null) {
-                builder.append(inputString)
-
-                inputString = bufferedReader.readLine()
-
-            }
-
-            return builder.toString()
-
-        } finally {
-            urlConnection.disconnect()
-        }
-
-        return "Couldn't connect"
-    }
-
-
-    override fun onPostExecute(result: String?) {
-        Log.d("MAKO", "result of network stuff: $result")
-    }
-
-}
-        */
