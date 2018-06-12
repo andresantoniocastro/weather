@@ -24,19 +24,16 @@
 
 package com.castro.andres.cnntakehome.network
 
-import android.app.Application
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.util.Log
 import com.castro.andres.cnntakehome.data.db.ForecastRepository
-import com.castro.andres.cnntakehome.data.entities.ForecastQuery
 import com.castro.andres.cnntakehome.data.viewmodels.LatestQueryViewModel
 import java.util.*
 import kotlin.concurrent.schedule
@@ -80,7 +77,11 @@ class NetworkFragment : Fragment() {
 
     }
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
 
+//        makeOpenWeatherApiCalls()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +91,7 @@ class NetworkFragment : Fragment() {
 
         subscribeToLatestQuery(viewModel)
 
+//        makeOpenWeatherApiCalls()
     }
 
     private fun makeOpenWeatherApiCalls() {
@@ -98,10 +100,16 @@ class NetworkFragment : Fragment() {
         if (isConnectedToNetwork()) {
             if (activity?.application != null) {
 
-                var forecast = RESTMethod.constructQuery(RequestType.CURRENT)
-                ForecastRepository(activity!!.application).insertNewRequest(forecast)
+                var currentQuery = RESTMethod.constructQuery(RequestType.CURRENT)
+                ForecastRepository(activity!!.application).insertNewRequest(currentQuery)
 
-                RESTThread(activity!!.application, forecast).execute()
+                RESTAsyncTask(activity!!.application, currentQuery).execute()
+
+
+                var forecastQuery = RESTMethod.constructQuery(RequestType.FORECAST)
+                ForecastRepository(activity!!.application).insertNewRequest(forecastQuery)
+
+                RESTAsyncTask(activity!!.application, forecastQuery).execute()
             }
         }
 
@@ -112,6 +120,7 @@ class NetworkFragment : Fragment() {
     {
         if(activity == null || activity?.applicationContext == null)
             return false
+
 
         val cm = activity?.applicationContext?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
@@ -164,52 +173,4 @@ class NetworkFragment : Fragment() {
         }
     }
 
-}
-
-private class RESTThread(private val app: Application, private val forecast: ForecastQuery) : AsyncTask<ForecastQuery, Void, String>(){
-
-
-    override fun onPreExecute() {
-        super.onPreExecute()
-
-        // update current query to say that we are talking to the server
-        forecast.currentStatus = RequestStatus.IN_TRANSIT
-        ForecastRepository(app).updateRequest(forecast)
-    }
-
-    override fun doInBackground(vararg params: ForecastQuery?): String {
-
-        // do the actual guts of talking to the server
-        var result = ""
-        try{
-            result = RESTMethod.get(forecast.requestText)
-
-        // if it wasn't successful then update the db as having an issue
-        }catch (re : RuntimeException)
-        {
-            forecast.currentStatus = RequestStatus.ERROR
-            result = re.message ?: RESTMethod.ERROR_STRING
-        }
-
-        return result
-
-    }
-
-    override fun onPostExecute(result: String?) {
-        super.onPostExecute(result)
-
-        // if something went wrong other than the bad response code deal with it ow
-        if(result == RESTMethod.ERROR_STRING)
-        {
-            forecast.currentStatus == RequestStatus.ERROR
-        // if there was no error than go ahead and update the status to be a success
-        }else if(forecast.currentStatus == RequestStatus.IN_TRANSIT)
-        {
-            forecast.currentStatus = RequestStatus.SUCCESS
-            forecast.data = result ?: ""
-        }
-
-        // update entry in DB
-        ForecastRepository(app).insertNewRequest(forecast)
-    }
 }
