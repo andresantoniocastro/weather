@@ -15,11 +15,11 @@ import java.util.*
 class WeatherListAdapter(/*private var forecasts : List<WeatherForecast> = listOf()*/) : RecyclerView.Adapter<WeatherListAdapter.ViewHolder>() {
 
     private var forecasts = listOf<WeatherForecast>(
-            WeatherForecast("Atlanta", 1528598441, 56, 1, "cloudy", 10, 0, 12, true ),
-            WeatherForecast("Atlanta", 1528598441, 99, 1, "cloudy", 10, 0, 12, true ),
-            WeatherForecast("Atlanta", 1528598441, 123, 1, "cloudy", 10, 0, 12, true ),
-            WeatherForecast("Atlanta", 1528598441, 213, 1, "cloudy", 10, 0, 12, true ),
-            WeatherForecast("Atlanta", 1528598441, 12, 1, "cloudy", 10, 0, 12, true )
+//            WeatherForecast("Atlanta", 1528598441, 56, 1, "cloudy", 10, 0, 12, true ),
+//            WeatherForecast("Atlanta", 1528598441, 99, 1, "cloudy", 10, 0, 12, true ),
+//            WeatherForecast("Atlanta", 1528598441, 123, 1, "cloudy", 10, 0, 12, true ),
+//            WeatherForecast("Atlanta", 1528598441, 213, 1, "cloudy", 10, 0, 12, true ),
+//            WeatherForecast("Atlanta", 1528598441, 12, 1, "cloudy", 10, 0, 12, true )
 
 
     )
@@ -135,38 +135,38 @@ class WeatherListAdapter(/*private var forecasts : List<WeatherForecast> = listO
         // establish some utility methods to help the UI out. They need to be in the companion object so the vviewholders can see them
 
         /**
-         * Given a description return the correct small icon
+         * Given an icon ID return the correct small icon
          */
-        private fun getSmallIcon(desc : String) : Int
+        private fun getSmallIcon(iconID : String) : Int
         {
-            return when(desc){
-                "clear" -> R.drawable.ic_clear
-                "cloudy" -> R.drawable.ic_cloudy
-                "fog" -> R.drawable.ic_fog
-                "light clouds" -> R.drawable.ic_light_clouds
-                "light rain" -> R.drawable.ic_light_rain
-                "rain" -> R.drawable.ic_rain
-                "snow" -> R.drawable.ic_snow
-                "storm" -> R.drawable.ic_storm
+            return when(iconID){
+                "01d", "01n" -> R.drawable.ic_clear
+                "02d", "02n" -> R.drawable.ic_light_clouds
+                "03d", "03n", "04d", "04n" -> R.drawable.ic_cloudy
+                "09d", "09n" -> R.drawable.ic_light_rain
+                "10d", "10n" -> R.drawable.ic_rain
+                "11d", "11n" -> R.drawable.ic_storm
+                "13d", "13n" -> R.drawable.ic_snow
+                "50d", "05n" -> R.drawable.ic_fog
                 else -> R.drawable.ic_snow
 
             }
         }
 
         /**
-         * Given a description return a large icon
+         * Given an icon ID return a large icon
          */
-        private fun getArt(desc : String) : Int
+        private fun getArt(iconID : String) : Int
         {
-            return when(desc){
-                "clear" -> R.drawable.art_clear
-                "cloudy" -> R.drawable.art_clouds
-                "fog" -> R.drawable.art_fog
-                "light clouds" -> R.drawable.art_light_clouds
-                "light rain" -> R.drawable.art_light_rain
-                "rain" -> R.drawable.art_rain
-                "snow" -> R.drawable.art_snow
-                "storm" -> R.drawable.art_storm
+            return when(iconID){
+                "01d", "01n" -> R.drawable.art_clear
+                "02d", "02n" -> R.drawable.art_light_clouds
+                "03d", "03n", "04d", "04n" -> R.drawable.art_clouds
+                "09d", "09n" -> R.drawable.art_light_rain
+                "10d", "10n" -> R.drawable.art_rain
+                "11d", "11n" -> R.drawable.art_storm
+                "13d", "13n" -> R.drawable.art_snow
+                "50d", "05n" -> R.drawable.art_fog
                 else -> R.drawable.art_snow
 
             }
