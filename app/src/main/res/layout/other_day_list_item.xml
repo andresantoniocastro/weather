@@ -25,6 +25,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/otherDayIconImage"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,19 +43,44 @@
         android:id="@+id/otherDayCurrentTempText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/otherDayText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/otherDayText" />
+
+    <TextView
+        android:id="@+id/otherDayCurrentTempUnits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/degree_sym"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/otherDayCurrentTempText"
+        app:layout_constraintTop_toTopOf="@+id/otherDayCurrentTempText" />
 
     <TextView
         android:id="@+id/otherDayMinTempText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/otherDayCurrentTempText" />
+
+    <TextView
+        android:id="@+id/otherDayMinTempSuffiix"
+        android:layout_width="6dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/degree_sym"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/otherDayMinTempText"
+        app:layout_constraintTop_toTopOf="@+id/otherDayMinTempText" />
 
 </android.support.constraint.ConstraintLayout>
