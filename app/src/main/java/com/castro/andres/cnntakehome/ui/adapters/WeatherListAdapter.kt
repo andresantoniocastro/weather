@@ -2,6 +2,7 @@ package com.castro.andres.cnntakehome.ui.adapters
 
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,17 +13,9 @@ import kotlinx.android.synthetic.main.today_list_item.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class WeatherListAdapter(/*private var forecasts : List<WeatherForecast> = listOf()*/) : RecyclerView.Adapter<WeatherListAdapter.ViewHolder>() {
-
-    private var forecasts = listOf<WeatherForecast>(
-//            WeatherForecast("Atlanta", 1528598441, 56, 1, "cloudy", 10, 0, 12, true ),
-//            WeatherForecast("Atlanta", 1528598441, 99, 1, "cloudy", 10, 0, 12, true ),
-//            WeatherForecast("Atlanta", 1528598441, 123, 1, "cloudy", 10, 0, 12, true ),
-//            WeatherForecast("Atlanta", 1528598441, 213, 1, "cloudy", 10, 0, 12, true ),
-//            WeatherForecast("Atlanta", 1528598441, 12, 1, "cloudy", 10, 0, 12, true )
+class WeatherListAdapter(private var forecasts : List<WeatherForecast> = listOf()) : RecyclerView.Adapter<WeatherListAdapter.ViewHolder>() {
 
 
-    )
 
     fun update(newForecasts : List<WeatherForecast>)
     {
@@ -49,6 +42,7 @@ class WeatherListAdapter(/*private var forecasts : List<WeatherForecast> = listO
         })
 
         forecasts = newForecasts
+        
         result.dispatchUpdatesTo(this)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherListAdapter.ViewHolder {
@@ -103,7 +97,7 @@ class WeatherListAdapter(/*private var forecasts : List<WeatherForecast> = listO
             view.otherDayDescriptionText.text = forecast.dayDescription
             view.otherDayCurrentTempText.text = forecast.currentTemp.toString()
             view.otherDayMinTempText.text = forecast.minTemp.toString()
-            view.otherDayIconImage.setImageResource(getSmallIcon(forecast.dayDescription))
+            view.otherDayIconImage.setImageResource(getSmallIcon(forecast.iconId))
         }
 
     }
@@ -117,7 +111,7 @@ class WeatherListAdapter(/*private var forecasts : List<WeatherForecast> = listO
             view.todayDescriptionText.text = forecast.dayDescription
             view.todayCurrentTempText.text = forecast.currentTemp.toString()
             view.todayMinTempText.text = forecast.minTemp.toString()
-            view.todayImageView.setImageResource(getArt(forecast.dayDescription))
+            view.todayImageView.setImageResource(getArt(forecast.iconId))
         }
     }
 
@@ -147,7 +141,7 @@ class WeatherListAdapter(/*private var forecasts : List<WeatherForecast> = listO
                 "10d", "10n" -> R.drawable.ic_rain
                 "11d", "11n" -> R.drawable.ic_storm
                 "13d", "13n" -> R.drawable.ic_snow
-                "50d", "05n" -> R.drawable.ic_fog
+                "50d", "50n" -> R.drawable.ic_fog
                 else -> R.drawable.ic_snow
 
             }
@@ -166,7 +160,7 @@ class WeatherListAdapter(/*private var forecasts : List<WeatherForecast> = listO
                 "10d", "10n" -> R.drawable.art_rain
                 "11d", "11n" -> R.drawable.art_storm
                 "13d", "13n" -> R.drawable.art_snow
-                "50d", "05n" -> R.drawable.art_fog
+                "50d", "50n" -> R.drawable.art_fog
                 else -> R.drawable.art_snow
 
             }
