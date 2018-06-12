@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.castro.andres.cnntakehome.R
-import com.castro.andres.cnntakehome.data.db.ForecastRepository
 import com.castro.andres.cnntakehome.data.entities.WeatherForecast
 import com.castro.andres.cnntakehome.ui.adapters.WeatherListAdapter
-import kotlinx.android.synthetic.main.detail_panel_layout.*
 
 /**
  * This class is responsible for displaying the details panel to the user
@@ -32,6 +30,7 @@ class DetailFragment : Fragment() {
         private const val humidity_key = "HUMIDITY"
         private const val wind_key = "WIND"
         private const val pressure_key = "PRESSURE"
+        private const val wind_deg_key = "WIND_DEG"
 
         fun getInstance(forecast : WeatherForecast) : DetailFragment
         {
@@ -47,6 +46,7 @@ class DetailFragment : Fragment() {
             bundle.putDouble(humidity_key, forecast.humidity)
             bundle.putDouble(wind_key, forecast.wind)
             bundle.putDouble(pressure_key, forecast.pressure)
+            bundle.putDouble(wind_deg_key, forecast.windDegree)
             frag.arguments = bundle
 
             return frag
@@ -71,6 +71,7 @@ class DetailFragment : Fragment() {
             root.findViewById<TextView>(R.id.detailPressureText).text = arguments!!.getDouble(pressure_key).toString()
             root.findViewById<TextView>(R.id.detailDayDescriptionText).text = arguments!!.getString(description_key)
             root.findViewById<ImageView>(R.id.detailImageView).setImageResource(WeatherListAdapter.getArt(arguments!!.getString(icon_key)))
+            root.findViewById<TextView>(R.id.detailWindDirection).text = WeatherListAdapter.getWindDirection(arguments!!.getDouble(wind_deg_key))
         }
 
 
