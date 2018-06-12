@@ -1,6 +1,5 @@
 package com.castro.andres.cnntakehome.data.parser
 
-import android.util.Log
 import com.castro.andres.cnntakehome.data.entities.WeatherForecast
 import org.json.JSONObject
 
@@ -27,8 +26,11 @@ class QueryResponseToWeatherParser {
 
             val windJsonObject = rootJsonObject.getJSONObject("wind")
             val windSpeed = windJsonObject.getDouble("speed")
+            val windDegrees = windJsonObject.getDouble("deg")
 
-            return WeatherForecast(cityName, utcTimeStamp, temp, minTemp, description, iconId, humidity, windSpeed,  pressure, true)
+            // The most current weather is ALWAYS at the 0 position in the table
+
+            return WeatherForecast(0, cityName, utcTimeStamp, temp, minTemp, description, iconId, humidity, windSpeed, windDegrees,  pressure, true)
 
         }
 
@@ -59,8 +61,9 @@ class QueryResponseToWeatherParser {
 
                 val windJsonObject = jsonForecastObject.getJSONObject("wind")
                 val windSpeed = windJsonObject.getDouble("speed")
-
-                val newItem=WeatherForecast(cityName, utcTimeStamp, temp, minTemp, description, iconId, humidity, windSpeed,  pressure, false)
+                val windDegrees = windJsonObject.getDouble("deg")
+                // the 0 position is always the current weather the rest are the most latest forecasts
+                val newItem=WeatherForecast( index + 1, cityName, utcTimeStamp, temp, minTemp, description, iconId, humidity, windSpeed, windDegrees, pressure, false)
                 resultArray.add(newItem)
             }
 
