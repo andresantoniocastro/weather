@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#D3D3D3"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,9 +11,11 @@
         android:id="@+id/detailDayText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textColor="@android:color/black"
+        android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,9 +23,10 @@
         android:id="@+id/detailDateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailDayText" />
 
@@ -30,9 +34,11 @@
         android:id="@+id/detailCurrentTempText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textColor="@android:color/black"
+        android:textSize="50sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailDateText" />
 
@@ -41,6 +47,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/degree_sym"
+        android:textColor="@android:color/black"
+        android:textSize="50sp"
         app:layout_constraintStart_toEndOf="@+id/detailCurrentTempText"
         app:layout_constraintTop_toTopOf="@+id/detailCurrentTempText" />
 
@@ -48,9 +56,12 @@
         android:id="@+id/detailMinTempText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="@+id/detailCurrentTempSuffix"
+        app:layout_constraintStart_toStartOf="@+id/detailCurrentTempText"
         app:layout_constraintTop_toBottomOf="@+id/detailCurrentTempText" />
 
     <TextView
@@ -58,6 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/degree_sym"
+        android:textSize="36sp"
         app:layout_constraintStart_toEndOf="@+id/detailMinTempText"
         app:layout_constraintTop_toTopOf="@+id/detailMinTempText" />
 
@@ -65,9 +77,10 @@
         android:id="@+id/detailHumidityLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="@string/humidity_label"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailMinTempText" />
 
@@ -77,6 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/detailHumidityLabel"
         app:layout_constraintTop_toTopOf="@+id/detailHumidityLabel" />
 
@@ -84,7 +98,9 @@
         android:id="@+id/detailHumiditySuffix"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="@string/percentage"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/detailHumidityText"
         app:layout_constraintTop_toTopOf="@+id/detailHumidityText" />
 
@@ -92,9 +108,10 @@
         android:id="@+id/detailWindLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="@string/wind_label"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailHumidityLabel" />
 
@@ -104,6 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/detailWindLabel"
         app:layout_constraintTop_toTopOf="@+id/detailWindLabel" />
 
@@ -113,6 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/wind_units"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/detailWindText"
         app:layout_constraintTop_toTopOf="@+id/detailWindText" />
 
@@ -120,7 +139,9 @@
         android:id="@+id/detailWindDirection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/detailWindUnits"
         app:layout_constraintTop_toTopOf="@+id/detailWindUnits" />
 
@@ -128,8 +149,10 @@
         android:id="@+id/detailPressureLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         android:text="@string/pressure_label"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailWindLabel" />
 
@@ -139,14 +162,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/detailPressureLabel"
-        app:layout_constraintTop_toBottomOf="@+id/detailWindLabel" />
+        app:layout_constraintTop_toTopOf="@+id/detailPressureLabel" />
 
     <TextView
         android:id="@+id/detailPressureSuffix"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="@string/pressue_units"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/detailPressureText"
         app:layout_constraintTop_toTopOf="@+id/detailPressureText" />
 
@@ -154,8 +180,8 @@
         android:id="@+id/detailImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/art_clear" />
