@@ -7,8 +7,9 @@ import com.castro.andres.cnntakehome.data.db.contracts.RestDAO
 import com.castro.andres.cnntakehome.data.db.converters.RequestStatusConverter
 import com.castro.andres.cnntakehome.data.db.converters.RequestTypeConverter
 import com.castro.andres.cnntakehome.data.entities.ForecastQuery
+import com.castro.andres.cnntakehome.data.entities.WeatherForecast
 
-@Database(entities = [(ForecastQuery::class)], version = 1)
+@Database(entities = [(ForecastQuery::class), (WeatherForecast::class)], version = 1)
 @TypeConverters(*arrayOf(RequestTypeConverter::class, RequestStatusConverter::class))
 abstract class ForecastDatabase : RoomDatabase(){
 

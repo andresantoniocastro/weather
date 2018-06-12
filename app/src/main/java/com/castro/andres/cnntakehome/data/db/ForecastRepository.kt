@@ -5,6 +5,7 @@ import android.os.AsyncTask
 import android.util.Log
 import com.castro.andres.cnntakehome.data.db.contracts.RestDAO
 import com.castro.andres.cnntakehome.data.entities.ForecastQuery
+import com.castro.andres.cnntakehome.data.entities.WeatherForecast
 
 class ForecastRepository internal constructor(app : Application){
 
@@ -33,6 +34,34 @@ class ForecastRepository internal constructor(app : Application){
     fun deleteRequest(req: ForecastQuery)
     {
         DeleteAsyncTask(restDao).execute(req)
+    }
+
+    fun insertWeatherForecast(forecast : WeatherForecast)
+    {
+        InsertWeatherAsyncTask(restDao).execute(forecast)
+    }
+
+    fun insertWeatherForecasts(forecasts : List<WeatherForecast>)
+    {
+        InsertMultipleForecastsAsyncTask(restDao).execute(forecasts)
+    }
+
+    private class InsertWeatherAsyncTask internal constructor(private val mAsyncTaskDao: RestDAO) : AsyncTask<WeatherForecast, Void, Void>() {
+
+        override fun doInBackground(vararg params: WeatherForecast): Void? {
+            mAsyncTaskDao.insertForecast(params[0])
+            return null
+        }
+
+    }
+
+    private class InsertMultipleForecastsAsyncTask internal constructor(private val mAsyncTaskDao: RestDAO) : AsyncTask<List<WeatherForecast>, Void, Void>() {
+
+        override fun doInBackground(vararg params: List<WeatherForecast>): Void? {
+            mAsyncTaskDao.insertForecasts(params[0])
+            return null
+        }
+
     }
 
     private class InsertAsyncTask internal constructor(private val mAsyncTaskDao: RestDAO) : AsyncTask<ForecastQuery, Void, Void>() {
@@ -72,8 +101,6 @@ class ForecastRepository internal constructor(app : Application){
             return null
         }
     }
-
-
 
 
 }
