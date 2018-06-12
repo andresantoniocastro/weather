@@ -14,6 +14,9 @@ class ForecastRepository internal constructor(app : Application){
     // getInstance will build a new one so we can safely ignore this null check
     val restDao = db!!.getRestDao()
     var latestForecastQuery = restDao.getLastQuery()
+    val latestSuccessCurrentQuery = restDao.getLastSuccessfulCurrentQuery()
+    val latestSuccessForecastQuery = restDao.getLastSuccessfulForecastQuery()
+
 
 
     fun insertNewRequest(req : ForecastQuery){
