@@ -3,7 +3,11 @@
 
     <!-- Layout helpers -->
     <string name="humidity_label">HUMIDITY:</string>
+    <string name="percentage">%</string>
+    <string name="degree_sym">°</string>
+    <string name="pressue_units">hPa</string>
     <string name="wind_label">WIND:</string>
+    <string name="wind_units">km/H</string>
     <string name="pressure_label">PRESSURE:</string>
 
 </resources>

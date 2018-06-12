@@ -37,6 +37,14 @@
         app:layout_constraintTop_toBottomOf="@+id/detailDateText" />
 
     <TextView
+        android:id="@+id/detailCurrentTempSuffix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/degree_sym"
+        app:layout_constraintStart_toEndOf="@+id/detailCurrentTempText"
+        app:layout_constraintTop_toTopOf="@+id/detailCurrentTempText" />
+
+    <TextView
         android:id="@+id/detailMinTempText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,6 +52,14 @@
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailCurrentTempText" />
+
+    <TextView
+        android:id="@+id/detailMinTempSuffix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/degree_sym"
+        app:layout_constraintStart_toEndOf="@+id/detailMinTempText"
+        app:layout_constraintTop_toTopOf="@+id/detailMinTempText" />
 
     <TextView
         android:id="@+id/detailHumidityLabel"
@@ -65,6 +81,14 @@
         app:layout_constraintTop_toTopOf="@+id/detailHumidityLabel" />
 
     <TextView
+        android:id="@+id/detailHumiditySuffix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/percentage"
+        app:layout_constraintStart_toEndOf="@+id/detailHumidityText"
+        app:layout_constraintTop_toTopOf="@+id/detailHumidityText" />
+
+    <TextView
         android:id="@+id/detailWindLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,6 +108,23 @@
         app:layout_constraintTop_toTopOf="@+id/detailWindLabel" />
 
     <TextView
+        android:id="@+id/detailWindUnits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/wind_units"
+        app:layout_constraintStart_toEndOf="@+id/detailWindText"
+        app:layout_constraintTop_toTopOf="@+id/detailWindText" />
+
+    <TextView
+        android:id="@+id/detailWindDirection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/detailWindUnits"
+        app:layout_constraintTop_toTopOf="@+id/detailWindUnits" />
+
+    <TextView
         android:id="@+id/detailPressureLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -100,6 +141,14 @@
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/detailPressureLabel"
         app:layout_constraintTop_toBottomOf="@+id/detailWindLabel" />
+
+    <TextView
+        android:id="@+id/detailPressureSuffix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pressue_units"
+        app:layout_constraintStart_toEndOf="@+id/detailPressureText"
+        app:layout_constraintTop_toTopOf="@+id/detailPressureText" />
 
     <ImageView
         android:id="@+id/detailImageView"

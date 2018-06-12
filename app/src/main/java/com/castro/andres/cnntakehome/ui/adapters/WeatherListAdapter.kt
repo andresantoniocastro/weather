@@ -1,6 +1,5 @@
 package com.castro.andres.cnntakehome.ui.adapters
 
-import android.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
@@ -177,6 +176,28 @@ class WeatherListAdapter(val supprtFragmentManager: FragmentManager, private var
             }
         }
 
+        fun getWindDirection(deg : Double) : String
+        {
+            return when(deg){
+                in 348.75..360.0, in 0.0..11.25-> "N"
+                in 11.25..33.75 -> "NNE"
+                in 33.75..56.25 -> "NE"
+                in 56.25..78.75 -> "ENE"
+                in 56.25..78.75 -> "E"
+                in 101.25..123.75 -> "ESE"
+                in 123.75..146.25 -> "SE"
+                in 146.25..168.75 -> "SSE"
+                in 168.75..191.25 -> "S"
+                in 191.25..213.75 -> "SSW"
+                in 213.75..236.25 -> "SW"
+                in 236.25..258.75 -> "WSW"
+                in 258.75..281.25 -> "W"
+                in 281.25..303.75 -> "WNW"
+                in 303.75..326.25 -> "NW"
+                else -> "NNW"
+            }
+        }
+
 
 
         /**
@@ -184,7 +205,7 @@ class WeatherListAdapter(val supprtFragmentManager: FragmentManager, private var
          */
         fun getDayOfWeekFromTimeStamp(timeStamp: Long) : String
         {
-            val date = Date(timeStamp)
+            val date = Date(timeStamp * 1000)
 
             val format = SimpleDateFormat("EEEE")
 
@@ -213,7 +234,8 @@ class WeatherListAdapter(val supprtFragmentManager: FragmentManager, private var
          */
         fun getDateFromTimeStamp(timeStamp : Long) : String
         {
-            val date = Date(timeStamp)
+            Log.d("MAKO", "stamp: $timeStamp")
+            val date = Date(timeStamp  * 1000)
 
             val format = SimpleDateFormat("MMMM dd")
 
