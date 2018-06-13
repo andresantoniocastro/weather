@@ -26,12 +26,21 @@ class QueryResponseToWeatherParser {
             val cityName = rootJsonObject.optString("name", "n/a")
             val utcTimeStamp = rootJsonObject.optLong("dt", Long.MIN_VALUE)
 
-            val mainJsonObject = rootJsonObject.getJSONObject("main")
 
-            val temp = mainJsonObject.getDouble("temp")
-            val humidity = mainJsonObject.getDouble("humidity")
-            val pressure = mainJsonObject.getDouble("pressure")
-            val minTemp = mainJsonObject.getDouble("temp_min")
+            var temp = Double.MIN_VALUE
+            var humidity = Double.MIN_VALUE
+            var pressure = Double.MIN_VALUE
+            var minTemp = Double.MIN_VALUE
+
+            if(rootJsonObject.has("main"))
+            {
+                val mainJSONObject = rootJsonObject.getJSONObject("main")
+                temp = mainJSONObject.optDouble("temp", Double.MIN_VALUE)
+                humidity = mainJSONObject.optDouble("humidity", Double.MIN_VALUE)
+                pressure = mainJSONObject.optDouble("pressure", Double.MIN_VALUE)
+                minTemp = mainJSONObject.optDouble("temp_min", Double.MIN_VALUE)
+
+            }
 
             val windJsonObject = rootJsonObject.getJSONObject("wind")
             val windSpeed = windJsonObject.getDouble("speed")

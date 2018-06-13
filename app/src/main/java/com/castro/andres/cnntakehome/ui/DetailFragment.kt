@@ -71,11 +71,52 @@ class DetailFragment : Fragment() {
                 root.findViewById<TextView>(R.id.detailDayText).text = getString(R.string.unknown)
                 root.findViewById<TextView>(R.id.detailDateText).text = getString(R.string.unknown)
             }
-            root.findViewById<TextView>(R.id.detailCurrentTempText).text = arguments!!.getDouble(temp_key).toString()
-            root.findViewById<TextView>(R.id.detailMinTempText).text = arguments!!.getDouble(min_temp_key).toString()
-            root.findViewById<TextView>(R.id.detailHumidityText).text = arguments!!.getDouble(humidity_key).toString()
+
+            val currentTemp = arguments!!.getDouble(temp_key)
+
+            if(currentTemp > Double.MIN_VALUE)
+            {
+                root.findViewById<TextView>(R.id.detailCurrentTempText).text = currentTemp.toString()
+            }else
+            {
+                root.findViewById<TextView>(R.id.detailCurrentTempText).text = getString(R.string.unknown)
+            }
+
+
+            val minTemp = arguments!!.getDouble(min_temp_key)
+            if(minTemp > Double.MIN_VALUE)
+            {
+                root.findViewById<TextView>(R.id.detailMinTempText).text = minTemp.toString()
+            }else
+            {
+                root.findViewById<TextView>(R.id.detailMinTempText).text = getString(R.string.unknown)
+            }
+
+            val humidity = arguments!!.getDouble(humidity_key)
+            if(humidity > Double.MIN_VALUE)
+            {
+                root.findViewById<TextView>(R.id.detailHumidityText).text = humidity.toString()
+                root.findViewById<TextView>(R.id.detailHumiditySuffix).visibility = View.VISIBLE
+            }else
+            {
+                root.findViewById<TextView>(R.id.detailHumidityText).text = getString(R.string.unknown)
+                root.findViewById<TextView>(R.id.detailHumiditySuffix).visibility = View.INVISIBLE
+            }
+
             root.findViewById<TextView>(R.id.detailWindText).text = arguments!!.getDouble(wind_key).toString()
-            root.findViewById<TextView>(R.id.detailPressureText).text = arguments!!.getDouble(pressure_key).toString()
+
+            val pressure = arguments!!.getDouble(pressure_key)
+            if(pressure > Double.MIN_VALUE)
+            {
+                root.findViewById<TextView>(R.id.detailPressureText).text = pressure.toString()
+                root.findViewById<TextView>(R.id.detailPressureSuffix).visibility = View.VISIBLE
+            }else
+            {
+
+                root.findViewById<TextView>(R.id.detailPressureText).text = getString(R.string.unknown)
+                root.findViewById<TextView>(R.id.detailPressureSuffix).visibility = View.INVISIBLE
+            }
+
             root.findViewById<TextView>(R.id.detailDayDescriptionText).text = arguments!!.getString(description_key)
             root.findViewById<ImageView>(R.id.detailImageView).setImageResource(WeatherListAdapter.getArt(arguments!!.getString(icon_key)))
             root.findViewById<TextView>(R.id.detailWindDirection).text = WeatherListAdapter.getWindDirection(arguments!!.getDouble(wind_deg_key))

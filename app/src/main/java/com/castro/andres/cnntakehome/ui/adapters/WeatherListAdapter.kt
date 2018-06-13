@@ -112,8 +112,26 @@ class WeatherListAdapter(val supprtFragmentManager: FragmentManager, private var
                 view.otherDayText.text = "Unknown"
             }
             view.otherDayDescriptionText.text = forecast.dayDescription
-            view.otherDayCurrentTempText.text = forecast.currentTemp.toString()
-            view.otherDayMinTempText.text = forecast.minTemp.toString()
+            val currentTemp = forecast.currentTemp
+            if(currentTemp > Double.MIN_VALUE)
+            {
+                view.otherDayCurrentTempText.text = forecast.currentTemp.toString()
+
+            }else
+            {
+                view.otherDayCurrentTempText.text = "N/A"
+            }
+
+            val minTemp = forecast.minTemp
+            if(minTemp > Double.MIN_VALUE)
+            {
+                view.otherDayMinTempText.text = forecast.minTemp.toString()
+
+            }else
+            {
+
+                view.otherDayMinTempText.text = "N/A"
+            }
             view.otherDayIconImage.setImageResource(getSmallIcon(forecast.iconId))
         }
 
@@ -134,8 +152,25 @@ class WeatherListAdapter(val supprtFragmentManager: FragmentManager, private var
                 view.todayDateText.text = "Unknown"
             }
             view.todayDescriptionText.text = forecast.dayDescription
-            view.todayCurrentTempText.text = forecast.currentTemp.toString()
-            view.todayMinTempText.text = forecast.minTemp.toString()
+            val currentTemp = forecast.currentTemp
+            if(currentTemp > Double.MIN_VALUE)
+            {
+                view.todayCurrentTempText.text = forecast.currentTemp.toString()
+            }else
+            {
+                view.todayCurrentTempText.text = "N/A"
+
+            }
+
+            val minTemp = forecast.minTemp
+            if(minTemp > Double.MIN_VALUE){
+                view.todayMinTempText.text = forecast.minTemp.toString()
+
+            }else
+            {
+                view.todayMinTempText.text = "N/A"
+            }
+
             view.todayImageView.setImageResource(getArt(forecast.iconId))
         }
     }
@@ -210,7 +245,7 @@ class WeatherListAdapter(val supprtFragmentManager: FragmentManager, private var
                 in 281.25..303.75 -> "WNW"
                 in 303.75..326.25 -> "NW"
                 in 326.25..348.75 -> "NNW"
-                else -> "N/A"
+                else -> "Unknown Direction"
             }
         }
 
