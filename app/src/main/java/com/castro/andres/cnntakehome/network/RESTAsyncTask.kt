@@ -6,6 +6,7 @@ import android.util.Log
 import com.castro.andres.cnntakehome.data.db.ForecastRepository
 import com.castro.andres.cnntakehome.data.entities.ForecastQuery
 import com.castro.andres.cnntakehome.data.parser.QueryResponseToWeatherParser
+import java.net.SocketTimeoutException
 
 class RESTAsyncTask(private val app: Application, private val forecast: ForecastQuery) : AsyncTask<ForecastQuery, Void, String>(){
 
@@ -24,6 +25,7 @@ class RESTAsyncTask(private val app: Application, private val forecast: Forecast
         // do the actual guts of talking to the server
         var result = ""
         try{
+
             result = RESTMethod.get(forecast.requestText)
 
             // if it wasn't successful then update the db as having an issue
@@ -31,6 +33,9 @@ class RESTAsyncTask(private val app: Application, private val forecast: Forecast
         {
             forecast.currentStatus = RequestStatus.ERROR
             result = re.message ?: RESTMethod.ERROR_STRING
+        }catch(sse : SocketTimeoutException) {
+            forecast.currentStatus = RequestStatus.ERROR
+            result = sse.message ?: RESTMethod.ERROR_STRING
         }
 
         Log.d("MAKO", "result of REST was $result")
@@ -62,7 +67,7 @@ class RESTAsyncTask(private val app: Application, private val forecast: Forecast
         }
 
         // update entry in DB
-        // for some reason ROOM doesn't want to update after a success so instead kjust inser a new row
+        // for some reason ROOM doesn't want to update after a success so instead just insert a new row
         ForecastRepository(app).updateRequest(forecast)
     }
 }
