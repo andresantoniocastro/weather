@@ -1,6 +1,7 @@
 package com.castro.andres.cnntakehome.data.parser
 
 import com.castro.andres.cnntakehome.data.entities.WeatherForecast
+import org.json.JSONArray
 import org.json.JSONObject
 
 class QueryResponseToWeatherParser {
@@ -10,9 +11,17 @@ class QueryResponseToWeatherParser {
         {
             val rootJsonObject = JSONObject(jsonString)
 
-            val weatherJSONObject = rootJsonObject.getJSONArray("weather").getJSONObject(0)
-            val description = weatherJSONObject.getString("description")
-            val iconId = weatherJSONObject.getString("icon")
+            var description = "n/a"
+            var iconId = "n/a"
+            if(rootJsonObject.has("weather") && rootJsonObject.get("weather") is JSONArray) {
+                val weatherJSONArray = rootJsonObject.getJSONArray("weather")
+                if(weatherJSONArray.length() > 0)
+                {
+                    val weatherJSONObject = weatherJSONArray.getJSONObject(0)
+                    description = weatherJSONObject.optString("description", "n/a")
+                    iconId = weatherJSONObject.optString("icon", "n/a")
+                }
+            }
 
             val cityName = rootJsonObject.getString("name")
             val utcTimeStamp = rootJsonObject.getLong("dt")
