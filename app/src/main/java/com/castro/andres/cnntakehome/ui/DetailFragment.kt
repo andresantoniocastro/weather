@@ -103,7 +103,6 @@ class DetailFragment : Fragment() {
                 root.findViewById<TextView>(R.id.detailHumiditySuffix).visibility = View.INVISIBLE
             }
 
-            root.findViewById<TextView>(R.id.detailWindText).text = arguments!!.getDouble(wind_key).toString()
 
             val pressure = arguments!!.getDouble(pressure_key)
             if(pressure > Double.MIN_VALUE)
@@ -117,9 +116,32 @@ class DetailFragment : Fragment() {
                 root.findViewById<TextView>(R.id.detailPressureSuffix).visibility = View.INVISIBLE
             }
 
+            val windSpeed = arguments!!.getDouble(wind_key)
+            val windDegrees = arguments!!.getDouble(wind_deg_key)
+            if(windSpeed > Double.MIN_VALUE)
+            {
+                root.findViewById<TextView>(R.id.detailWindText).text = arguments!!.getDouble(wind_key).toString()
+                root.findViewById<TextView>(R.id.detailWindText).visibility = View.VISIBLE
+
+                if(windDegrees > Double.MIN_VALUE)
+                {
+                    root.findViewById<TextView>(R.id.detailWindDirection).visibility = View.VISIBLE
+                    root.findViewById<TextView>(R.id.detailWindDirection).text = WeatherListAdapter.getWindDirection(arguments!!.getDouble(wind_deg_key))
+
+                }else
+                {
+                    root.findViewById<TextView>(R.id.detailWindDirection).visibility = View.INVISIBLE
+                }
+
+            }else
+            {
+                root.findViewById<TextView>(R.id.detailWindText).visibility = View.INVISIBLE
+
+            }
+
+
             root.findViewById<TextView>(R.id.detailDayDescriptionText).text = arguments!!.getString(description_key)
             root.findViewById<ImageView>(R.id.detailImageView).setImageResource(WeatherListAdapter.getArt(arguments!!.getString(icon_key)))
-            root.findViewById<TextView>(R.id.detailWindDirection).text = WeatherListAdapter.getWindDirection(arguments!!.getDouble(wind_deg_key))
         }
 
 

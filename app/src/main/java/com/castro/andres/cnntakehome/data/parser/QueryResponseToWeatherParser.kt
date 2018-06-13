@@ -42,9 +42,14 @@ class QueryResponseToWeatherParser {
 
             }
 
-            val windJsonObject = rootJsonObject.getJSONObject("wind")
-            val windSpeed = windJsonObject.getDouble("speed")
-            val windDegrees = windJsonObject.getDouble("deg")
+            var windSpeed = Double.MIN_VALUE
+            var windDegrees = Double.MIN_VALUE
+            if(rootJsonObject.has("wind"))
+            {
+                val windJsonObject = rootJsonObject.getJSONObject("wind")
+                windSpeed = windJsonObject.optDouble("speed", Double.MIN_VALUE)
+                windDegrees = windJsonObject.optDouble("deg", Double.MIN_VALUE)
+            }
 
             // The most current weather is ALWAYS at the 0 position in the table
 
