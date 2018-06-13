@@ -1,6 +1,7 @@
 package com.castro.andres.cnntakehome
 
 
+import com.castro.andres.cnntakehome.data.entities.WeatherForecast
 import com.castro.andres.cnntakehome.data.parser.QueryResponseToWeatherParser
 import org.junit.Assert.*
 import org.junit.Test
@@ -204,83 +205,205 @@ class QueryResponseToWeatherParserCurrentMessageTest {
     }
 
     @Test
-    fun cityName_Present()
+    fun cityName_Missing()
     {
+        val testString = "{\n" +
+                "\"coord\": {\n" +
+                "\"lon\": -84.39,\n" +
+                "\"lat\": 33.75\n" +
+                "},\n" +
+                "\"weather\": [\n" +
+                "{\n" +
+                "\"id\": 803,\n" +
+                "\"main\": \"Clouds\",\n" +
+                "\"description\": \"broken clouds\",\n" +
+                "\"icon\": \"04d\"\n" +
+                "}\n" +
+                "],\n" +
+                "\"base\": \"cmc stations\",\n" +
+                "\"main\": {\n" +
+                "\"temp\": 64.83,\n" +
+                "\"pressure\": 1019,\n" +
+                "\"humidity\": 72,\n" +
+                "\"temp_min\": 62.01,\n" +
+                "\"temp_max\": 68\n" +
+                "},\n" +
+                "\"wind\": {\n" +
+                "\"speed\": 5.82,\n" +
+                "\"deg\": 200\n" +
+                "},\n" +
+                "\"clouds\": {\n" +
+                "\"all\": 75\n" +
+                "},\n" +
+                "\"dt\": 1461591863,\n" +
+                "\"sys\": {\n" +
+                "\"type\": 1,\n" +
+                "\"id\": 748,\n" +
+                "\"message\": 0.0044,\n" +
+                "\"country\": \"US\",\n" +
+                "\"sunrise\": 1461581639,\n" +
+                " \"sunset\": 1461629830\n" +
+                "},\n" +
+                "\"id\": 4180439,\n" +
+                "\"cod\": 200\n" +
+                "}"
 
+        val weatherForecast = QueryResponseToWeatherParser.parseCurrentJson(testString)
+        val expected = "n/a"
+
+        assertEquals(expected, weatherForecast.city)
     }
 
     @Test
-    fun cityName_Missing()
+    fun cityName_Present()
     {
 
+        val testString = "{\n" +
+                "\"coord\": {\n" +
+                "\"lon\": -84.39,\n" +
+                "\"lat\": 33.75\n" +
+                "},\n" +
+                "\"weather\": [\n" +
+                "{\n" +
+                "\"id\": 803,\n" +
+                "\"main\": \"Clouds\",\n" +
+                "\"description\": \"broken clouds\",\n" +
+                "\"icon\": \"04d\"\n" +
+                "}\n" +
+                "],\n" +
+                "\"base\": \"cmc stations\",\n" +
+                "\"main\": {\n" +
+                "\"temp\": 64.83,\n" +
+                "\"pressure\": 1019,\n" +
+                "\"humidity\": 72,\n" +
+                "\"temp_min\": 62.01,\n" +
+                "\"temp_max\": 68\n" +
+                "},\n" +
+                "\"wind\": {\n" +
+                "\"speed\": 5.82,\n" +
+                "\"deg\": 200\n" +
+                "},\n" +
+                "\"clouds\": {\n" +
+                "\"all\": 75\n" +
+                "},\n" +
+                "\"dt\": 1461591863,\n" +
+                "\"sys\": {\n" +
+                "\"type\": 1,\n" +
+                "\"id\": 748,\n" +
+                "\"message\": 0.0044,\n" +
+                "\"country\": \"US\",\n" +
+                "\"sunrise\": 1461581639,\n" +
+                " \"sunset\": 1461629830\n" +
+                "},\n" +
+                "\"id\": 4180439,\n" +
+                "\"name\": \"Atlanta\",\n" +
+                "\"cod\": 200\n" +
+                "}"
+
+        val weatherForecast = QueryResponseToWeatherParser.parseCurrentJson(testString)
+        val expected = "Atlanta"
+        assertEquals(expected, weatherForecast.city)
     }
 
     @Test
     fun utcTimeStamp_Present()
     {
 
+        val testString = "{\n" +
+                "\"coord\": {\n" +
+                "\"lon\": -84.39,\n" +
+                "\"lat\": 33.75\n" +
+                "},\n" +
+                "\"weather\": [\n" +
+                "{\n" +
+                "\"id\": 803,\n" +
+                "\"main\": \"Clouds\",\n" +
+                "\"description\": \"broken clouds\",\n" +
+                "\"icon\": \"04d\"\n" +
+                "}\n" +
+                "],\n" +
+                "\"base\": \"cmc stations\",\n" +
+                "\"main\": {\n" +
+                "\"temp\": 64.83,\n" +
+                "\"pressure\": 1019,\n" +
+                "\"humidity\": 72,\n" +
+                "\"temp_min\": 62.01,\n" +
+                "\"temp_max\": 68\n" +
+                "},\n" +
+                "\"wind\": {\n" +
+                "\"speed\": 5.82,\n" +
+                "\"deg\": 200\n" +
+                "},\n" +
+                "\"clouds\": {\n" +
+                "\"all\": 75\n" +
+                "},\n" +
+                "\"dt\": 1461591863,\n" +
+                "\"sys\": {\n" +
+                "\"type\": 1,\n" +
+                "\"id\": 748,\n" +
+                "\"message\": 0.0044,\n" +
+                "\"country\": \"US\",\n" +
+                "\"sunrise\": 1461581639,\n" +
+                " \"sunset\": 1461629830\n" +
+                "},\n" +
+                "\"id\": 4180439,\n" +
+                "\"name\": \"Atlanta\",\n" +
+                "\"cod\": 200\n" +
+                "}"
+
+        val weatherForecast = QueryResponseToWeatherParser.parseCurrentJson(testString)
+        val expected = 1461591863L
+        assertEquals(expected, weatherForecast.date)
+
     }
 
     @Test
     fun utcTimeStamp_Missing()
     {
+        val testString = "{\n" +
+                "\"coord\": {\n" +
+                "\"lon\": -84.39,\n" +
+                "\"lat\": 33.75\n" +
+                "},\n" +
+                "\"weather\": [\n" +
+                "{\n" +
+                "\"id\": 803,\n" +
+                "\"main\": \"Clouds\",\n" +
+                "\"description\": \"broken clouds\",\n" +
+                "\"icon\": \"04d\"\n" +
+                "}\n" +
+                "],\n" +
+                "\"base\": \"cmc stations\",\n" +
+                "\"main\": {\n" +
+                "\"temp\": 64.83,\n" +
+                "\"pressure\": 1019,\n" +
+                "\"humidity\": 72,\n" +
+                "\"temp_min\": 62.01,\n" +
+                "\"temp_max\": 68\n" +
+                "},\n" +
+                "\"wind\": {\n" +
+                "\"speed\": 5.82,\n" +
+                "\"deg\": 200\n" +
+                "},\n" +
+                "\"clouds\": {\n" +
+                "\"all\": 75\n" +
+                "},\n" +
+                "\"sys\": {\n" +
+                "\"type\": 1,\n" +
+                "\"id\": 748,\n" +
+                "\"message\": 0.0044,\n" +
+                "\"country\": \"US\",\n" +
+                "\"sunrise\": 1461581639,\n" +
+                " \"sunset\": 1461629830\n" +
+                "},\n" +
+                "\"id\": 4180439,\n" +
+                "\"name\": \"Atlanta\",\n" +
+                "\"cod\": 200\n" +
+                "}"
 
-    }
-
-    @Test
-    fun mainObject_FullyPresent()
-    {
-
-    }
-
-    @Test
-    fun mainObject_MissingTemp()
-    {
-
-    }
-
-    @Test
-    fun mainObject_MissingHumidity()
-    {}
-
-    @Test
-    fun mainObject_MissingPressure()
-    {
-
-    }
-
-    @Test
-    fun mainObject_minTemp(){
-
-    }
-
-    @Test
-    fun mainObject_FullyMissing()
-    {
-
-    }
-
-    @Test
-    fun windObject_FullyPresent()
-    {
-
-    }
-
-    @Test
-    fun windObject_MissingWindSpeed()
-    {
-
-    }
-
-    @Test
-    fun windObject_MissingDegrees()
-    {
-
-    }
-
-    @Test
-    fun windObject_FullyMissing()
-    {
+        val weatherForecast = QueryResponseToWeatherParser.parseCurrentJson(testString)
+        val expected = Long.MIN_VALUE
+        assertEquals(expected, weatherForecast.date)
 
     }
 

@@ -62,8 +62,15 @@ class DetailFragment : Fragment() {
         if(arguments != null)
         {
 
-            root.findViewById<TextView>(R.id.detailDayText).text = WeatherListAdapter.getDayOfWeekFromTimeStamp(arguments!!.getLong(date_key))
-            root.findViewById<TextView>(R.id.detailDateText).text = WeatherListAdapter.getDateFromTimeStamp(arguments!!.getLong(date_key))
+            val timeStamp = arguments!!.getLong(date_key)
+            if(timeStamp > 0) {
+                root.findViewById<TextView>(R.id.detailDayText).text = WeatherListAdapter.getDayOfWeekFromTimeStamp(arguments!!.getLong(date_key))
+                root.findViewById<TextView>(R.id.detailDateText).text = WeatherListAdapter.getDateFromTimeStamp(arguments!!.getLong(date_key))
+            }else
+            {
+                root.findViewById<TextView>(R.id.detailDayText).text = getString(R.string.unknown)
+                root.findViewById<TextView>(R.id.detailDateText).text = getString(R.string.unknown)
+            }
             root.findViewById<TextView>(R.id.detailCurrentTempText).text = arguments!!.getDouble(temp_key).toString()
             root.findViewById<TextView>(R.id.detailMinTempText).text = arguments!!.getDouble(min_temp_key).toString()
             root.findViewById<TextView>(R.id.detailHumidityText).text = arguments!!.getDouble(humidity_key).toString()

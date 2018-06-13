@@ -23,8 +23,8 @@ class QueryResponseToWeatherParser {
                 }
             }
 
-            val cityName = rootJsonObject.getString("name")
-            val utcTimeStamp = rootJsonObject.getLong("dt")
+            val cityName = rootJsonObject.optString("name", "n/a")
+            val utcTimeStamp = rootJsonObject.optLong("dt", Long.MIN_VALUE)
 
             val mainJsonObject = rootJsonObject.getJSONObject("main")
 

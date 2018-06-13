@@ -103,7 +103,14 @@ class WeatherListAdapter(val supprtFragmentManager: FragmentManager, private var
      */
     class ForecastViewHolder(private val view: View) : ViewHolder(view) {
         override fun bindItems(forecast: WeatherForecast) {
-            view.otherDayText.text = getDayOfWeekFromTimeStamp(forecast.date)
+            val timeStamp = forecast.date
+            if(timeStamp > 0)
+            {
+                view.otherDayText.text = getDayOfWeekFromTimeStamp(forecast.date)
+            }else
+            {
+                view.otherDayText.text = "Unknown"
+            }
             view.otherDayDescriptionText.text = forecast.dayDescription
             view.otherDayCurrentTempText.text = forecast.currentTemp.toString()
             view.otherDayMinTempText.text = forecast.minTemp.toString()
@@ -117,7 +124,15 @@ class WeatherListAdapter(val supprtFragmentManager: FragmentManager, private var
      */
     class TodayViewHolder(private val view: View) : ViewHolder(view) {
         override fun bindItems(forecast: WeatherForecast) {
-            view.todayDateText.text = getDayOfWeekFromTimeStamp(forecast.date) + ", " + getDateFromTimeStamp(forecast.date)
+            val timeStamp = forecast.date
+            if(timeStamp>0)
+            {
+
+                view.todayDateText.text = getDayOfWeekFromTimeStamp(forecast.date) + ", " + getDateFromTimeStamp(forecast.date)
+            }else
+            {
+                view.todayDateText.text = "Unknown"
+            }
             view.todayDescriptionText.text = forecast.dayDescription
             view.todayCurrentTempText.text = forecast.currentTemp.toString()
             view.todayMinTempText.text = forecast.minTemp.toString()
@@ -194,7 +209,8 @@ class WeatherListAdapter(val supprtFragmentManager: FragmentManager, private var
                 in 258.75..281.25 -> "W"
                 in 281.25..303.75 -> "WNW"
                 in 303.75..326.25 -> "NW"
-                else -> "NNW"
+                in 326.25..348.75 -> "NNW"
+                else -> "N/A"
             }
         }
 

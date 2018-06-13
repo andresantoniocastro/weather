@@ -1,5 +1,9 @@
 <resources>
+
     <string name="app_name">CNNTakehome</string>
+    <string name="unknown">Unknown</string>
+    <string name="not_available">N/A</string>
+
 
     <!-- Layout helpers -->
     <string name="humidity_label">HUMIDITY:</string>
