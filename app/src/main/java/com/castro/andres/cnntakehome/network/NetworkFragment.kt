@@ -68,8 +68,6 @@ class NetworkFragment : Fragment() {
             var networkFragment = fragmentManager.findFragmentByTag(NetworkFragment.TAG)
             if (networkFragment == null) {
                 networkFragment = NetworkFragment()
-//                val args = Bundle()
-//                networkFragment.arguments = args
                 fragmentManager.beginTransaction().add(networkFragment, TAG).commit()
             }
             return networkFragment as NetworkFragment
@@ -85,7 +83,7 @@ class NetworkFragment : Fragment() {
 
         subscribeToLatestQuery(viewModel)
 
-//        makeOpenWeatherApiCalls()
+        makeOpenWeatherApiCalls()
     }
 
     private fun makeOpenWeatherApiCalls() {
