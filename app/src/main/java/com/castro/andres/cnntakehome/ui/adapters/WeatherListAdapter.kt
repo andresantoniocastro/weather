@@ -285,7 +285,6 @@ class WeatherListAdapter(private val supportFragmentManager: FragmentManager, pr
          */
         fun getDateFromTimeStamp(timeStamp : Long) : String
         {
-            Log.d("MAKO", "stamp: $timeStamp")
             val date = Date(timeStamp  * 1000)
 
             val format = SimpleDateFormat("MMMM dd")
