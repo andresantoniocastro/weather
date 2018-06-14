@@ -11,6 +11,7 @@ import java.net.SocketTimeoutException
 
 class RESTAsyncTask(private val app: Application, private val forecast: ForecastQuery) : AsyncTask<ForecastQuery, Void, String>(){
 
+    private val TAG = "RESTAsyncTask"
 
     override fun onPreExecute() {
         super.onPreExecute()
@@ -26,9 +27,7 @@ class RESTAsyncTask(private val app: Application, private val forecast: Forecast
         // do the actual guts of talking to the server
         var result = ""
         try{
-
             result = RESTMethod.get(forecast.requestText)
-
             // if it wasn't successful then update the db as having an issue
         }catch (re : RuntimeException)
         {
@@ -39,7 +38,7 @@ class RESTAsyncTask(private val app: Application, private val forecast: Forecast
             result = sse.message ?: RESTMethod.ERROR_STRING
         }
 
-        Log.d("MAKO", "result of REST was $result")
+        Log.i(TAG, "result of REST was $result")
         return result
 
     }
@@ -47,7 +46,6 @@ class RESTAsyncTask(private val app: Application, private val forecast: Forecast
     override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
 
-        Log.d("MAKO", result)
         // if something went wrong other than the bad response code deal with it ow
         if(result == null || result == RESTMethod.ERROR_STRING || result == "")
         {
@@ -56,8 +54,6 @@ class RESTAsyncTask(private val app: Application, private val forecast: Forecast
         }else if(forecast.currentStatus == RequestStatus.IN_TRANSIT)
         {
             forecast.currentStatus = RequestStatus.SUCCESS
-
-            Log.d("MAKO", "success")
             try{
                 if(forecast.openWeatherRequestType == RequestType.CURRENT)
                 {
@@ -74,6 +70,7 @@ class RESTAsyncTask(private val app: Application, private val forecast: Forecast
             }
         }
 
+        Log.i(TAG, "Request state: ${forecast.currentStatus}")
         // update entry in DB
         // for some reason ROOM doesn't want to update after a success so instead just insert a new row
         ForecastRepository(app).updateRequest(forecast)
