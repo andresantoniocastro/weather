@@ -15,13 +15,13 @@ import kotlinx.android.synthetic.main.today_list_item.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class WeatherListAdapter(val supprtFragmentManager: FragmentManager, private var forecasts : List<WeatherForecast> = listOf()) : RecyclerView.Adapter<WeatherListAdapter.ViewHolder>() {
+class WeatherListAdapter(private val supportFragmentManager: FragmentManager, private var forecasts : List<WeatherForecast> = listOf()) : RecyclerView.Adapter<WeatherListAdapter.ViewHolder>() {
 
 
-    fun getOnClickListener(forecast : WeatherForecast) : View.OnClickListener{
+    private fun getOnClickListener(forecast : WeatherForecast) : View.OnClickListener{
         return View.OnClickListener {
             val detailFragment = DetailFragment.getInstance(forecast)
-            supprtFragmentManager.beginTransaction().replace(R.id.fragment_container, detailFragment).addToBackStack("detail").commit()
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, detailFragment).addToBackStack("detail").commit()
         }
     }
 
