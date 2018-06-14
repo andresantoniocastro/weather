@@ -51,7 +51,7 @@ class RESTAsyncTask(private val app: Application, private val forecast: Forecast
         // if something went wrong other than the bad response code deal with it ow
         if(result == null || result == RESTMethod.ERROR_STRING || result == "")
         {
-            forecast.currentStatus == RequestStatus.ERROR
+            forecast.currentStatus = RequestStatus.ERROR
             // if there was no error than go ahead and update the status to be a success
         }else if(forecast.currentStatus == RequestStatus.IN_TRANSIT)
         {
