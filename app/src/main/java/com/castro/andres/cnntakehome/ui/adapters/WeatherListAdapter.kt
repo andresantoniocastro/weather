@@ -3,7 +3,6 @@ package com.castro.andres.cnntakehome.ui.adapters
 import android.support.v4.app.FragmentManager
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -109,7 +108,7 @@ class WeatherListAdapter(private val supportFragmentManager: FragmentManager, pr
                 view.otherDayText.text = getDayOfWeekFromTimeStamp(forecast.date)
             }else
             {
-                view.otherDayText.text = "Unknown"
+                view.otherDayText.text = view.context.getString(R.string.unknown)
             }
             view.otherDayDescriptionText.text = forecast.dayDescription
             val currentTemp = forecast.currentTemp
@@ -119,7 +118,7 @@ class WeatherListAdapter(private val supportFragmentManager: FragmentManager, pr
 
             }else
             {
-                view.otherDayCurrentTempText.text = "N/A"
+                view.otherDayCurrentTempText.text = view.context.getString(R.string.not_available)
             }
 
             val minTemp = forecast.minTemp
@@ -130,7 +129,7 @@ class WeatherListAdapter(private val supportFragmentManager: FragmentManager, pr
             }else
             {
 
-                view.otherDayMinTempText.text = "N/A"
+                view.otherDayMinTempText.text = view.context.getString(R.string.not_available)
             }
             view.otherDayIconImage.setImageResource(getSmallIcon(forecast.iconId))
         }
@@ -145,11 +144,10 @@ class WeatherListAdapter(private val supportFragmentManager: FragmentManager, pr
             val timeStamp = forecast.date
             if(timeStamp>0)
             {
-
                 view.todayDateText.text = getDayOfWeekFromTimeStamp(forecast.date) + ", " + getDateFromTimeStamp(forecast.date)
             }else
             {
-                view.todayDateText.text = "Unknown"
+                view.todayDateText.text = view.context.getString(R.string.unknown)
             }
             view.todayDescriptionText.text = forecast.dayDescription
             val currentTemp = forecast.currentTemp
@@ -158,7 +156,7 @@ class WeatherListAdapter(private val supportFragmentManager: FragmentManager, pr
                 view.todayCurrentTempText.text = forecast.currentTemp.toString()
             }else
             {
-                view.todayCurrentTempText.text = "N/A"
+                view.todayCurrentTempText.text = view.context.getString(R.string.not_available)
 
             }
 
@@ -168,7 +166,7 @@ class WeatherListAdapter(private val supportFragmentManager: FragmentManager, pr
 
             }else
             {
-                view.todayMinTempText.text = "N/A"
+                view.todayMinTempText.text = view.context.getString(R.string.not_available)
             }
 
             view.todayImageView.setImageResource(getArt(forecast.iconId))
