@@ -141,7 +141,6 @@ class NetworkFragment : Fragment() {
                 }
             }else
             {
-                Log.d("MAKO", "pretty sure there is nothing in the db so just go ahead and start up the net stuff")
                 makeOpenWeatherApiCalls()
             }
 
