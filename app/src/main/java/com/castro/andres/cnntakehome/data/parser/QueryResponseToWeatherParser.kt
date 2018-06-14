@@ -61,33 +61,64 @@ class QueryResponseToWeatherParser {
         {
             val rootJsonObject = JSONObject(jsonString)
 
-            val cityName = rootJsonObject.getJSONObject("city").getString("name")
-
-
-            val forecastList = rootJsonObject.getJSONArray("list")
+            var cityName = "n/a"
+            if(rootJsonObject.has("city"))
+            {
+                cityName = rootJsonObject.getJSONObject("city").optString("name", "n/a")
+            }
 
             val resultArray = arrayListOf<WeatherForecast>()
-            for(index in 0 until forecastList.length())
+
+            if(rootJsonObject.has("list"))
             {
-                val jsonForecastObject = forecastList.getJSONObject(index)
+                val forecastList = rootJsonObject.getJSONArray("list")
 
-                val utcTimeStamp = jsonForecastObject.getLong("dt")
-                val mainJsonObject = jsonForecastObject.getJSONObject("main")
-                val temp = mainJsonObject.getDouble("temp")
-                val humidity = mainJsonObject.getDouble("humidity")
-                val pressure = mainJsonObject.getDouble("pressure")
-                val minTemp = mainJsonObject.getDouble("temp_min")
+                for(index in 0 until forecastList.length())
+                {
+                    val jsonForecastObject = forecastList.getJSONObject(index)
 
-                val weatherJSONObject = jsonForecastObject.getJSONArray("weather").getJSONObject(0)
-                val description = weatherJSONObject.getString("description")
-                val iconId = weatherJSONObject.getString("icon")
+                    val utcTimeStamp = jsonForecastObject.optLong("dt", Long.MIN_VALUE)
 
-                val windJsonObject = jsonForecastObject.getJSONObject("wind")
-                val windSpeed = windJsonObject.getDouble("speed")
-                val windDegrees = windJsonObject.getDouble("deg")
-                // the 0 position is always the current weather the rest are the most latest forecasts
-                val newItem=WeatherForecast( index + 1, cityName, utcTimeStamp, temp, minTemp, description, iconId, humidity, windSpeed, windDegrees, pressure, false)
-                resultArray.add(newItem)
+                    var temp = Double.MIN_VALUE
+                    var humidity = Double.MIN_VALUE
+                    var pressure = Double.MIN_VALUE
+                    var minTemp = Double.MIN_VALUE
+
+                    if(jsonForecastObject.has("main"))
+                    {
+                        val mainJSONObject = jsonForecastObject.getJSONObject("main")
+                        temp = mainJSONObject.optDouble("temp", Double.MIN_VALUE)
+                        humidity = mainJSONObject.optDouble("humidity", Double.MIN_VALUE)
+                        pressure = mainJSONObject.optDouble("pressure", Double.MIN_VALUE)
+                        minTemp = mainJSONObject.optDouble("temp_min", Double.MIN_VALUE)
+                    }
+
+
+                    var description = "n/a"
+                    var iconId = "n/a"
+                    if(jsonForecastObject.has("weather") && jsonForecastObject.get("weather") is JSONArray) {
+                        val weatherJSONArray = jsonForecastObject.getJSONArray("weather")
+                        if(weatherJSONArray.length() > 0)
+                        {
+                            val weatherJSONObject = weatherJSONArray.getJSONObject(0)
+                            description = weatherJSONObject.optString("description", "n/a")
+                            iconId = weatherJSONObject.optString("icon", "n/a")
+                        }
+                    }
+
+                    var windSpeed = Double.MIN_VALUE
+                    var windDegrees = Double.MIN_VALUE
+                    if(jsonForecastObject.has("wind"))
+                    {
+                        val windJsonObject = jsonForecastObject.getJSONObject("wind")
+                        windSpeed = windJsonObject.optDouble("speed", Double.MIN_VALUE)
+                        windDegrees = windJsonObject.optDouble("deg", Double.MIN_VALUE)
+                    }
+                    // the 0 position is always the current weather the rest are the most latest forecasts
+                    val newItem=WeatherForecast( index + 1, cityName, utcTimeStamp, temp, minTemp, description, iconId, humidity, windSpeed, windDegrees, pressure, false)
+                    resultArray.add(newItem)
+                }
+
             }
 
             return resultArray
