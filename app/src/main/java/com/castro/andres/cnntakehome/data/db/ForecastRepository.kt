@@ -11,14 +11,9 @@ class ForecastRepository internal constructor(app : Application){
 
     private val db = ForecastDatabase.getInstance(app)
 
-
     // getInstance will build a new one so we can safely ignore this null check
     val restDao = db!!.getRestDao()
     var latestForecastQuery = restDao.getLastQuery()
-    val latestSuccessCurrentQuery = restDao.getLastSuccessfulCurrentQuery()
-    val latestSuccessForecastQuery = restDao.getLastSuccessfulForecastQuery()
-
-
 
     fun insertNewRequest(req : ForecastQuery){
 
@@ -27,7 +22,6 @@ class ForecastRepository internal constructor(app : Application){
 
     fun updateRequest(req : ForecastQuery)
     {
-        Log.d("MAKO", "tryint to update: " + req)
         UpdateAsyncTask(restDao).execute(req)
     }
 
@@ -49,7 +43,14 @@ class ForecastRepository internal constructor(app : Application){
     private class InsertWeatherAsyncTask internal constructor(private val mAsyncTaskDao: RestDAO) : AsyncTask<WeatherForecast, Void, Void>() {
 
         override fun doInBackground(vararg params: WeatherForecast): Void? {
-            mAsyncTaskDao.insertForecast(params[0])
+            Log.i(TAG, "insert forecasts: " + params[0])
+            try{
+
+                mAsyncTaskDao.insertForecast(params[0])
+            }catch(e : Exception)
+            {
+                Log.e(TAG , "can't see db", e)
+            }
             return null
         }
 
@@ -58,7 +59,17 @@ class ForecastRepository internal constructor(app : Application){
     private class InsertMultipleForecastsAsyncTask internal constructor(private val mAsyncTaskDao: RestDAO) : AsyncTask<List<WeatherForecast>, Void, Void>() {
 
         override fun doInBackground(vararg params: List<WeatherForecast>): Void? {
-            mAsyncTaskDao.insertForecasts(params[0])
+            Log.i(TAG, "insert multiple forecasts:\n ")
+            for(forecast in params[0])
+            {
+                Log.i(TAG, forecast.toString())
+            }
+            try{
+                mAsyncTaskDao.insertForecasts(params[0])
+            }catch (e : Exception)
+            {
+                Log.e(TAG , "can't see db", e)
+            }
             return null
         }
 
@@ -67,13 +78,13 @@ class ForecastRepository internal constructor(app : Application){
     private class InsertAsyncTask internal constructor(private val mAsyncTaskDao: RestDAO) : AsyncTask<ForecastQuery, Void, Void>() {
 
         override fun doInBackground(vararg params: ForecastQuery): Void? {
-            Log.d("MAKO", "inserting : " + params[0])
+            Log.i(TAG, "inserting query: " + params[0])
             try{
 
                 mAsyncTaskDao.insertRequest(params[0])
             }catch (e : Exception)
             {
-                Log.e("MAKO" , "can't see db", e)
+                Log.e(TAG , "can't see db", e)
             }
             return null
         }
@@ -82,13 +93,13 @@ class ForecastRepository internal constructor(app : Application){
     private class UpdateAsyncTask internal constructor(private val mAsyncTaskDao: RestDAO) : AsyncTask<ForecastQuery, Void, Void>() {
 
         override fun doInBackground(vararg params: ForecastQuery): Void? {
-            Log.d("MAKO", "updating : " + params[0])
+            Log.i(TAG, "updating : " + params[0])
             try{
 
                 mAsyncTaskDao.updateRequest(params[0])
             }catch(e : Exception)
             {
-                Log.e("MAKO" , "can't see db", e)
+                Log.e(TAG , "can't see db", e)
             }
             return null
         }
@@ -102,5 +113,7 @@ class ForecastRepository internal constructor(app : Application){
         }
     }
 
-
+    companion object {
+        private const val TAG = "ForecastRepository"
+    }
 }
