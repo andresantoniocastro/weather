@@ -100,13 +100,13 @@ class NetworkFragment : Fragment() {
         if (isConnectedToNetwork()) {
             if (activity?.application != null) {
 
-                var currentQuery = RESTMethod.constructQuery(RequestType.CURRENT)
+                val currentQuery = RESTMethod.constructQuery(RequestType.CURRENT)
                 ForecastRepository(activity!!.application).insertNewRequest(currentQuery)
 
                 RESTAsyncTask(activity!!.application, currentQuery).execute()
 
 
-                var forecastQuery = RESTMethod.constructQuery(RequestType.FORECAST)
+                val forecastQuery = RESTMethod.constructQuery(RequestType.FORECAST)
                 ForecastRepository(activity!!.application).insertNewRequest(forecastQuery)
 
                 RESTAsyncTask(activity!!.application, forecastQuery).execute()
