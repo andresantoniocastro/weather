@@ -6,6 +6,7 @@ import android.util.Log
 import com.castro.andres.cnntakehome.data.db.ForecastRepository
 import com.castro.andres.cnntakehome.data.entities.ForecastQuery
 import com.castro.andres.cnntakehome.data.parser.QueryResponseToWeatherParser
+import org.json.JSONException
 import java.net.SocketTimeoutException
 
 class RESTAsyncTask(private val app: Application, private val forecast: ForecastQuery) : AsyncTask<ForecastQuery, Void, String>(){
@@ -57,12 +58,19 @@ class RESTAsyncTask(private val app: Application, private val forecast: Forecast
             forecast.currentStatus = RequestStatus.SUCCESS
 
             Log.d("MAKO", "success")
-            if(forecast.openWeatherRequestType == RequestType.CURRENT)
+            try{
+                if(forecast.openWeatherRequestType == RequestType.CURRENT)
+                {
+
+                    ForecastRepository(app).insertWeatherForecast(QueryResponseToWeatherParser.parseCurrentJson(result))
+                }else if(forecast.openWeatherRequestType == RequestType.FORECAST)
+                {
+                    ForecastRepository(app).insertWeatherForecasts(QueryResponseToWeatherParser.parseForecastJson(result))
+                }
+            }catch(jsonEx : JSONException)
             {
-                ForecastRepository(app).insertWeatherForecast(QueryResponseToWeatherParser.parseCurrentJson(result))
-            }else if(forecast.openWeatherRequestType == RequestType.FORECAST)
-            {
-                ForecastRepository(app).insertWeatherForecasts(QueryResponseToWeatherParser.parseForecastJson(result))
+                forecast.currentStatus = RequestStatus.ERROR
+                forecast.data = RESTMethod.ERROR_STRING
             }
         }
 
