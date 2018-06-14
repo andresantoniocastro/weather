@@ -3,7 +3,6 @@ package com.castro.andres.cnntakehome.data.db
 import android.arch.persistence.db.SupportSQLiteOpenHelper
 import android.arch.persistence.room.*
 import android.content.Context
-import android.util.Log
 import com.castro.andres.cnntakehome.R
 import com.castro.andres.cnntakehome.data.db.contracts.RestDAO
 import com.castro.andres.cnntakehome.data.db.converters.RequestStatusConverter

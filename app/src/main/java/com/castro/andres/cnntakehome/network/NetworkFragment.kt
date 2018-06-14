@@ -32,7 +32,6 @@ import android.net.NetworkInfo
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.util.Log
 import com.castro.andres.cnntakehome.data.db.ForecastRepository
 import com.castro.andres.cnntakehome.data.viewmodels.LatestQueryViewModel
 import java.util.*
@@ -124,7 +123,6 @@ class NetworkFragment : Fragment() {
         viewModel?.latestQuery.observe(this, Observer { forecast ->
             if(forecast != null)
             {
-                // check to see if it has been at least 10 mins since last request
                 val timeToWait = forecast.attemptTime + 1000 * 60 * 10 // 10 mins after latest
                 val currentTime = System.currentTimeMillis()
 
