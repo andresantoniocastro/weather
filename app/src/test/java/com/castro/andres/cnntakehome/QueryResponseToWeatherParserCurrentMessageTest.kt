@@ -1,9 +1,7 @@
 package com.castro.andres.cnntakehome
 
-
-import com.castro.andres.cnntakehome.data.entities.WeatherForecast
 import com.castro.andres.cnntakehome.data.parser.QueryResponseToWeatherParser
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 
