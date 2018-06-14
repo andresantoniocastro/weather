@@ -77,12 +77,6 @@ class NetworkFragment : Fragment() {
 
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-
-//        makeOpenWeatherApiCalls()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
