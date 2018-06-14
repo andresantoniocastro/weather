@@ -3,6 +3,8 @@ package com.castro.andres.cnntakehome.data.db
 import android.arch.persistence.db.SupportSQLiteOpenHelper
 import android.arch.persistence.room.*
 import android.content.Context
+import android.util.Log
+import com.castro.andres.cnntakehome.R
 import com.castro.andres.cnntakehome.data.db.contracts.RestDAO
 import com.castro.andres.cnntakehome.data.db.converters.RequestStatusConverter
 import com.castro.andres.cnntakehome.data.db.converters.RequestTypeConverter
@@ -34,7 +36,7 @@ abstract class ForecastDatabase : RoomDatabase(){
                 synchronized(ForecastDatabase::class)
                 {
                     instance = Room.databaseBuilder(context.applicationContext,
-                                                    ForecastDatabase::class.java, "forecasting.db").build()
+                                                    ForecastDatabase::class.java, context.getString(R.string.db_name)).build()
                 }
             }
 

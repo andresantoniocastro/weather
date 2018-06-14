@@ -5,6 +5,9 @@
     <string name="not_available">N/A</string>
 
 
+    <string name="db_name">forecasting.db</string>
+
+
     <!-- Layout helpers -->
     <string name="humidity_label">HUMIDITY:</string>
     <string name="percentage">%</string>
